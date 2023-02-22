@@ -1,4 +1,6 @@
+import PropTypes from 'prop-types';
 import { Component } from 'react';
+import { Button, Form, Input, Label } from './ContactForm.styled';
 
 export class ContactForm extends Component {
   state = {
@@ -25,11 +27,10 @@ export class ContactForm extends Component {
   render() {
     const { name, number } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
+      <Form onSubmit={this.handleSubmit}>
+        <Label>
           Name
-          <br />
-          <input
+          <Input
             type="text"
             name="name"
             value={name}
@@ -38,12 +39,11 @@ export class ContactForm extends Component {
             required
             onChange={this.handleChange}
           />
-        </label>
-        <br />
-        <label>
+        </Label>
+
+        <Label>
           Number
-          <br />
-          <input
+          <Input
             type="tel"
             name="number"
             value={number}
@@ -52,10 +52,21 @@ export class ContactForm extends Component {
             required
             onChange={this.handleChange}
           />
-        </label>
-        <br />
-        <button type="submit">Add contact</button>
-      </form>
+        </Label>
+
+        <Button type="submit">Add contact</Button>
+      </Form>
     );
   }
 }
+
+ContactForm.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      number: PropTypes.string,
+    })
+  ),
+  onSubmit: PropTypes.func,
+};
