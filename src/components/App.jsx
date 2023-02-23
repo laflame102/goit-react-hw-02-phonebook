@@ -20,8 +20,6 @@ export class App extends Component {
 
     this.setState(prevState => ({
       contacts: [contact, ...prevState.contacts],
-      name: '',
-      number: '',
     }));
   };
 
@@ -37,7 +35,11 @@ export class App extends Component {
 
   getAvailableContacts = () => {
     const { filter, contacts } = this.state;
-    return contacts.filter(contact => contact.name.includes(filter));
+    const normalizedFilter = filter.toLowerCase();
+
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
   };
 
   render() {
